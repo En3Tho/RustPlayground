@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "DG9X5SXnCABlsow5zymac8f5DMt53vEGeoyvMK73yfI8FkYlKBUHFlwwJdNGJ9reVuclerCzGYssVefgGh2kzw==",
+  "success": true,
+  "projectFilePath": "G:\\source\\repos\\En3Tho\\RustPlayground\\CodinGame\\CodinGame.csproj",
+  "expectedPackageFiles": [
+    "G:\\source\\Nuget\\packages\\microsoft.netcore.app.ref\\6.0.7\\microsoft.netcore.app.ref.6.0.7.nupkg.sha512",
+    "G:\\source\\Nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.7\\microsoft.windowsdesktop.app.ref.6.0.7.nupkg.sha512",
+    "G:\\source\\Nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.7\\microsoft.aspnetcore.app.ref.6.0.7.nupkg.sha512"
+  ],
+  "logs": []
+}
