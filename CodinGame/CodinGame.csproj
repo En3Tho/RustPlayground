@@ -6,4 +6,20 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="target\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="target\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="target\**" />
+    </ItemGroup>
+
+    <Target Name="CargoBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="cargo build" />
+    </Target>
+
 </Project>
