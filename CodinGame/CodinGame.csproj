@@ -17,12 +17,6 @@
     <ItemGroup>
       <None Remove="target\**" />
     </ItemGroup>
-    
-    <Choose>
-        <When Condition="'$(Configuration'=='Release'">
-            
-        </When>
-    </Choose>
 
     <Target Name="CargoBuildDebug" Condition="'$(Configuration)'=='Debug'" AfterTargets="PostBuildEvent">
         <Exec Command="cargo build" />
@@ -30,6 +24,6 @@
 
     <Target Name="CargoBuildRelease" Condition="'$(Configuration)'=='Release'" AfterTargets="PostBuildEvent">
         <Exec Command="cargo build --release" />
-    </Target>    
+    </Target>
 
 </Project>
