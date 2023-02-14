@@ -1,13 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
+    <PropertyGroup>        
         <IsRust>True</IsRust>
+        <Lib>--lib</Lib>
     </PropertyGroup>
 
     <ItemGroup>
         <Compile Remove="target\**" />
         <EmbeddedResource Remove="target\**" />
         <None Remove="target\**" />
-    </ItemGroup>
+    </ItemGroup> 
 
 </Project>

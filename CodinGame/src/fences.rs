@@ -25,18 +25,17 @@ fn try_get_next_block(start_index: usize, blocks: &Vec<Block>) -> Option<(Block,
         None
     }
     else {
-        let mut found = false;
         let mut index = start_index + 1;
         let mut result = Block { start: blocks[start_index].start, end: blocks[start_index].end };
-        while !found && index < blocks.len() {
+        while index < blocks.len() {
             let next = &blocks[index];
-            if result.end >= next.start {
-                result = Block { start: result.start, end: max(result.end, next.end) };
-                index += 1;
+
+            if result.end < next.start {
+                break;
             }
-            else {
-                found = true;
-            }
+
+            result = Block { start: result.start, end: max(result.end, next.end) };
+            index += 1;
         }
         Some((result, index))
     }
@@ -61,13 +60,8 @@ fn go(current_block: &Block, index: usize, length: usize, blocks: &Vec<Block>) -
                 write_answer(current_block.start, current_block.end);
             }
         }
-    }
-}
+    }}
 
-/**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
- **/
 
 fn read_block() -> Block {
     let mut input_line = String::new();

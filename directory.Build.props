@@ -1,0 +1,17 @@
+<Project>
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <Target Name="CargoBuildDebug" Condition="'$(Configuration)'=='Debug' And '$(IsRust)'=='True'" AfterTargets="PreBuildEvent">
+        <Exec Command="cargo build $(Lib)" ConsoleToMSBuild="true"/>
+    </Target>
+
+    <Target Name="CargoBuildRelease" Condition="'$(Configuration)'=='Release' And '$(IsRust)'=='True'" AfterTargets="PreBuildEvent">
+        <Exec Command="cargo build --release $(Lib)" ConsoleToMSBuild="true"/>
+    </Target>
+</Project>
