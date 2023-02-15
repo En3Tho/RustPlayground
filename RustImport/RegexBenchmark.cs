@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using BenchmarkDotNet.Attributes;
 using RustExport;
@@ -17,15 +18,21 @@ public unsafe class RSRegexBenchmark
     {
         fixed (byte* ch = Utf8)
         {
-            return Interop.call_regex(ch);
+            return Interop.call_regex(ref Unsafe.AsRef<sbyte>(ch));
         }
     }
 }
 
 public partial class CSRegexBenchmark
 {
-    [GeneratedRegex(@"\s*((?:XXXX)|-?[0-9]+)\s+(-?[0-9]+)\s+((?:0[xX])?[0-9a-fA-F]+)\s+([0-9a-fA-F]{16})\s+((?:0[xX])?[0-9a-fA-F]+)\s+([^\s].*[^\s])\s+([0-9a-fA-F]{16}:[0-9a-fA-F]{16})\s+([0-9a-fA-F]{16})\s+(-?[0-9]+)\s+([^\s].*[^\s])\s*([^\s].*[^\s])*\s*")]
+    [GeneratedRegex(@"\s*(XXXX|-?[0-9]+)\s+(-?[0-9]+)\s+((?:0[xX])?[0-9a-fA-F]+)\s+([0-9a-fA-F]{16})\s+((?:0[xX])?[0-9a-fA-F]+)\s+([^\s].*[^\s])\s+([0-9a-fA-F]{16}:[0-9a-fA-F]{16})\s+([0-9a-fA-F]{16})\s+(-?[0-9]+)\s+([^\s].*[^\s])\s*([^\s].*[^\s])*\s*")]
     public static partial Regex CSharpRegex();
+
+    [GeneratedRegex(@"\s*(XXXX|-?[0-9]+)\s+(-?[0-9]+)\s+((?:0[xX])?[0-9a-fA-F]+)\s+([0-9a-fA-F]{16})\s+((?:0[xX])?[0-9a-fA-F]+)\s+([^\s].*[^\s])\s+([0-9a-fA-F]{16}:[0-9a-fA-F]{16})\s+([0-9a-fA-F]{16})\s+(-?[0-9]+)\s+([^\s].*[^\s])\s*([^\s].*[^\s])*\s*", RegexOptions.NonBacktracking)]
+    public static partial Regex CSharpRegexNonBacktracking();
+
+    [GeneratedRegex(@"\s*(XXXX|-?[0-9]+)\s+(-?[0-9]+)\s+((?:0[xX])?[0-9a-fA-F]+)\s+([0-9a-fA-F]{16})\s+((?:0[xX])?[0-9a-fA-F]+)\s+([^\s].*[^\s])\s+([0-9a-fA-F]{16}:[0-9a-fA-F]{16})\s+([0-9a-fA-F]{16})\s+(-?[0-9]+)\s+([^\s].*[^\s])\s*([^\s].*[^\s])*\s*", RegexOptions.ExplicitCapture)]
+    public static partial Regex CSharpRegexExplicitCapture();
 
     [Params(
         "ThreadCount:      42",
@@ -35,5 +42,11 @@ public partial class CSRegexBenchmark
 
     [Benchmark]
     public bool CSharp() => CSharpRegex().IsMatch(String);
+
+    [Benchmark]
+    public bool CSharpNonBacktracking() => CSharpRegexNonBacktracking().IsMatch(String);
+
+    [Benchmark]
+    public bool CSharpExplicitCapture() => CSharpRegexExplicitCapture().IsMatch(String);
 }
 

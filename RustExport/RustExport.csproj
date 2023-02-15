@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>        
-        <IsRust>True</IsRust>
-        <Lib>--lib</Lib>
+        <Rust>True</Rust>
+        <RLib>--lib</RLib>
+        <RTest>True</RTest>
     </PropertyGroup>
 
     <ItemGroup>

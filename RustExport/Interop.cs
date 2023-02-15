@@ -10,7 +10,7 @@ using RustExport;
 
 namespace RustExport
 {
-    public static unsafe partial class Interop
+    public static partial class Interop
     {
         public const string NativeLib = "rust_export";
 
@@ -23,7 +23,7 @@ namespace RustExport
         public static extern Vec2 my_function(Vec2 input);
 
         [DllImport(NativeLib, CallingConvention = CallingConvention.Cdecl, EntryPoint = "call_regex")]
-        public static extern bool call_regex(byte* ch);
+        public static extern bool call_regex(ref sbyte ch);
 
     }
 

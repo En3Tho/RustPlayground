@@ -7,11 +7,19 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
-    <Target Name="CargoBuildDebug" Condition="'$(Configuration)'=='Debug' And '$(IsRust)'=='True'" AfterTargets="PreBuildEvent">
+    <Target Name="CargoBuildDebug" Condition="'$(Configuration)'=='Debug' And '$(Rust)'=='True'" AfterTargets="PreBuildEvent">
         <Exec Command="cargo build $(Lib)" ConsoleToMSBuild="true"/>
     </Target>
 
-    <Target Name="CargoBuildRelease" Condition="'$(Configuration)'=='Release' And '$(IsRust)'=='True'" AfterTargets="PreBuildEvent">
-        <Exec Command="cargo build --release $(Lib)" ConsoleToMSBuild="true"/>
+    <Target Name="CargoBuildRelease" Condition="'$(Configuration)'=='Release' And '$(Rust)'=='True'" AfterTargets="PreBuildEvent">
+        <Exec Command="cargo build --release $(RLib)" ConsoleToMSBuild="true"/>
+    </Target>
+
+    <Target Name="CargoTestDebug" Condition="'$(RTest)'=='True'" AfterTargets="CargoBuildDebug">
+        <Exec Command="cargo test" ConsoleToMSBuild="true"/>
+    </Target>
+
+    <Target Name="CargoTestRelease" Condition="'$(RTest)'=='True'" AfterTargets="CargoBuildRelease">
+        <Exec Command="cargo test" ConsoleToMSBuild="true"/>
     </Target>
 </Project>

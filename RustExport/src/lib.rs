@@ -6,7 +6,7 @@ use std::ffi::{c_char, CStr};
 extern crate lazy_static;
 
 lazy_static! {
-    static ref REGEX: Regex = Regex::new(r"\s*((?:XXXX)|-?[0-9]+)\s+(-?[0-9]+)\s+((?:0[xX])?[0-9a-fA-F]+)\s+([0-9a-fA-F]{16})\s+((?:0[xX])?[0-9a-fA-F]+)\s+([^\s].*[^\s])\s+([0-9a-fA-F]{16}:[0-9a-fA-F]{16})\s+([0-9a-fA-F]{16})\s+(-?[0-9]+)\s+([^\s].*[^\s])\s*([^\s].*[^\s])*\s*").unwrap();
+    static ref REGEX: Regex = Regex::new(r"\s*(XXXX|-?[0-9]+)\s+(-?[0-9]+)\s+((?:0[xX])?[0-9a-fA-F]+)\s+([0-9a-fA-F]{16})\s+((?:0[xX])?[0-9a-fA-F]+)\s+([^\s].*[^\s])\s+([0-9a-fA-F]{16}:[0-9a-fA-F]{16})\s+([0-9a-fA-F]{16})\s+(-?[0-9]+)\s+([^\s].*[^\s])\s*([^\s].*[^\s])*\s*").unwrap();
 }
 
 #[ffi_function]
