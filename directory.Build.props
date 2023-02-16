@@ -7,19 +7,19 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
-    <Target Name="CargoBuildDebug" Condition="'$(Configuration)'=='Debug' And '$(Rust)'=='True'" AfterTargets="PreBuildEvent">
-        <Exec Command="cargo build $(Lib)" ConsoleToMSBuild="true"/>
+    <PropertyGroup Condition="'$(RLib)'=='True'">
+        <CargoLibFlag>--lib</CargoLibFlag>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <CargoReleaseFlag>--release</CargoReleaseFlag>
+    </PropertyGroup>
+
+    <Target Name="CargoBuild" Condition="'$(Rust)'=='True'" AfterTargets="PreBuildEvent">
+        <Exec Command="cargo build $(CargoReleaseFlag) $(CargoLibFlag)" ConsoleToMSBuild="true"/>
     </Target>
 
-    <Target Name="CargoBuildRelease" Condition="'$(Configuration)'=='Release' And '$(Rust)'=='True'" AfterTargets="PreBuildEvent">
-        <Exec Command="cargo build --release $(RLib)" ConsoleToMSBuild="true"/>
-    </Target>
-
-    <Target Name="CargoTestDebug" Condition="'$(RTest)'=='True'" AfterTargets="CargoBuildDebug">
-        <Exec Command="cargo test" ConsoleToMSBuild="true"/>
-    </Target>
-
-    <Target Name="CargoTestRelease" Condition="'$(RTest)'=='True'" AfterTargets="CargoBuildRelease">
+    <Target Name="CargoTest" Condition="'$(RTest)'=='True'" AfterTargets="CargoBuild">
         <Exec Command="cargo test" ConsoleToMSBuild="true"/>
     </Target>
 </Project>

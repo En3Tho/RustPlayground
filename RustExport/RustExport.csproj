@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <Rust>True</Rust>
-        <RLib>--lib</RLib>
+        <RLib>True</RLib>
         <RTest>True</RTest>
     </PropertyGroup>
 
