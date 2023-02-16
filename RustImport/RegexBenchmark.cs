@@ -25,13 +25,17 @@ public unsafe class RSRegexBenchmark
 
 public partial class CSRegexBenchmark
 {
-    [GeneratedRegex(@"\s*(XXXX|-?[0-9]+)\s+(-?[0-9]+)\s+((?:0[xX])?[0-9a-fA-F]+)\s+([0-9a-fA-F]{16})\s+((?:0[xX])?[0-9a-fA-F]+)\s+([^\s].*[^\s])\s+([0-9a-fA-F]{16}:[0-9a-fA-F]{16})\s+([0-9a-fA-F]{16})\s+(-?[0-9]+)\s+([^\s].*[^\s])\s*([^\s].*[^\s])*\s*")]
+    //lang=regex
+    private const string Regex =
+        @"\s*(XXXX|-?[0-9]+)\s+(-?[0-9]+)\s+((?:0[xX])?[0-9a-fA-F]+)\s+([0-9a-fA-F]{16})\s+((?:0[xX])?[0-9a-fA-F]+)\s+([^\s].*[^\s])\s+([0-9a-fA-F]{16}:[0-9a-fA-F]{16})\s+([0-9a-fA-F]{16})\s+(-?[0-9]+)\s+([^\s].*[^\s])\s*([^\s].*[^\s])*\s*";
+
+    [GeneratedRegex(Regex)]
     public static partial Regex CSharpRegex();
 
-    [GeneratedRegex(@"\s*(XXXX|-?[0-9]+)\s+(-?[0-9]+)\s+((?:0[xX])?[0-9a-fA-F]+)\s+([0-9a-fA-F]{16})\s+((?:0[xX])?[0-9a-fA-F]+)\s+([^\s].*[^\s])\s+([0-9a-fA-F]{16}:[0-9a-fA-F]{16})\s+([0-9a-fA-F]{16})\s+(-?[0-9]+)\s+([^\s].*[^\s])\s*([^\s].*[^\s])*\s*", RegexOptions.NonBacktracking)]
+    [GeneratedRegex(Regex, RegexOptions.NonBacktracking)]
     public static partial Regex CSharpRegexNonBacktracking();
 
-    [GeneratedRegex(@"\s*(XXXX|-?[0-9]+)\s+(-?[0-9]+)\s+((?:0[xX])?[0-9a-fA-F]+)\s+([0-9a-fA-F]{16})\s+((?:0[xX])?[0-9a-fA-F]+)\s+([^\s].*[^\s])\s+([0-9a-fA-F]{16}:[0-9a-fA-F]{16})\s+([0-9a-fA-F]{16})\s+(-?[0-9]+)\s+([^\s].*[^\s])\s*([^\s].*[^\s])*\s*", RegexOptions.ExplicitCapture)]
+    [GeneratedRegex(Regex, RegexOptions.ExplicitCapture)]
     public static partial Regex CSharpRegexExplicitCapture();
 
     [Params(
