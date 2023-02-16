@@ -11,9 +11,5 @@
     <ItemGroup>
       <PackageReference Include="BenchmarkDotNet" Version="0.13.4" />
     </ItemGroup>
-    
-    <Target Name="CopyRustExport" AfterTargets="PostBuildEvent">
-        <Copy SourceFiles="..\RustExport\target\$(Configuration)\rust_export.dll" DestinationFolder="$(OutputPath)" />
-    </Target>
-    
+
 </Project>

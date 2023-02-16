@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>        
+    <PropertyGroup>
         <Rust>True</Rust>
         <RLib>--lib</RLib>
         <RTest>True</RTest>
@@ -10,6 +10,13 @@
         <Compile Remove="target\**" />
         <EmbeddedResource Remove="target\**" />
         <None Remove="target\**" />
-    </ItemGroup> 
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="target\$(Configuration)\rust_export.dll">
+            <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 
 </Project>
