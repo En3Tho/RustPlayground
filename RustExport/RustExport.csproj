@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Rust>True</Rust>
-        <RLib>True</RLib>
-        <RTest>True</RTest>
+        <Rust>true</Rust>
+        <RLib>true</RLib>
+        <RTest>true</RTest>
         <RLibName>rust_export</RLibName>
     </PropertyGroup>
 
@@ -17,7 +17,7 @@
         <TargetLibPath>target\$(Configuration.ToLower())</TargetLibPath>
     </PropertyGroup>
     
-    <ItemGroup Condition="'$(RLib)'=='True'">
+    <ItemGroup Condition="'$(RLib)'=='true'">
         <None Condition="'$(IsWindows)'=='true'" Include="$(TargetLibPath)\$(RLibName).dll">
             <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

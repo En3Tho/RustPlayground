@@ -13,7 +13,7 @@
         <IsLinux Condition="$([MSBuild]::IsOSPlatform('Linux'))">true</IsLinux>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(RLib)'=='True'">
+    <PropertyGroup Condition="'$(RLib)'=='true'">
         <CargoLibFlag>--lib</CargoLibFlag>
     </PropertyGroup>
 
@@ -21,11 +21,11 @@
         <CargoReleaseFlag>--release</CargoReleaseFlag>
     </PropertyGroup>
 
-    <Target Name="CargoBuild" Condition="'$(Rust)'=='True'" AfterTargets="PreBuildEvent">
+    <Target Name="CargoBuild" Condition="'$(Rust)'=='true'" AfterTargets="PreBuildEvent">
         <Exec Command="cargo build $(CargoReleaseFlag) $(CargoLibFlag)" ConsoleToMSBuild="true"/>
     </Target>
 
-    <Target Name="CargoTest" Condition="'$(RTest)'=='True'" AfterTargets="CargoBuild">
+    <Target Name="CargoTest" Condition="'$(RTest)'=='true'" AfterTargets="CargoBuild">
         <Exec Command="cargo test" ConsoleToMSBuild="true"/>
     </Target>
 

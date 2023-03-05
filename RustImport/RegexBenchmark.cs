@@ -8,7 +8,13 @@ namespace RustImport;
 
 static unsafe class RustImportFPtr
 {
-    private static readonly nint LibAddress = NativeLibrary.Load("rust_export");
+    private static readonly nint LibAddress =
+        NativeLibrary.Load(
+            OperatingSystem.IsWindows()
+                ? "rust_export"
+                : OperatingSystem.IsLinux()
+                ? "./librust_export.so"
+                : throw new($"OS not supported: {Environment.OSVersion}"));
 
     public static readonly delegate* unmanaged[Cdecl] <byte*, bool> call_regex =
         (delegate* unmanaged[Cdecl] <byte*, bool>) NativeLibrary.GetExport(LibAddress, nameof(call_regex));

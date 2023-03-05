@@ -62,7 +62,6 @@ fn go(current_block: &Block, index: usize, length: usize, blocks: &Vec<Block>) -
         }
     }}
 
-
 fn read_block() -> Block {
     let mut input_line = String::new();
     io::stdin().read_line(&mut input_line).unwrap();
