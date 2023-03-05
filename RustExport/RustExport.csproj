@@ -12,17 +12,17 @@
         <EmbeddedResource Remove="target\**" />
         <None Remove="target\**" />
     </ItemGroup>
-
+    
+    <PropertyGroup>
+        <TargetLibPath>target\$(Configuration.ToLower())</TargetLibPath>
+    </PropertyGroup>
+    
     <ItemGroup Condition="'$(RLib)'=='True'">
-        <None Condition="'$(IsWindows)'=='true'" Include="target\$(Configuration)\$(RLibName).dll">
+        <None Condition="'$(IsWindows)'=='true'" Include="$(TargetLibPath)\$(RLibName).dll">
             <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Condition="'$(IsLinux)'=='true'" Include="target\$(Configuration.ToLower())\lib$(RLibName).so">
-            <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="target\$(Configuration.ToLower())\$(RLibName).pdb">
+        <None Condition="'$(IsLinux)'=='true'" Include="$(TargetLibPath)\lib$(RLibName).so">
             <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
