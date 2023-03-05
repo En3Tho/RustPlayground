@@ -1,9 +1,18 @@
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using BenchmarkDotNet.Attributes;
 using RustExport;
 
 namespace RustImport;
+
+static unsafe class RustImportFPtr
+{
+    private static readonly nint LibAddress = NativeLibrary.Load("rust_export");
+
+    public static readonly delegate* unmanaged[Cdecl] <byte*, bool> call_regex =
+        (delegate* unmanaged[Cdecl] <byte*, bool>) NativeLibrary.GetExport(LibAddress, nameof(call_regex));
+}
 
 public unsafe class RSRegexBenchmark
 {
@@ -19,6 +28,15 @@ public unsafe class RSRegexBenchmark
         fixed (byte* ch = Utf8)
         {
             return Interop.call_regex(ref Unsafe.AsRef<sbyte>(ch));
+        }
+    }
+
+    [Benchmark]
+    public bool RustFPtr()
+    {
+        fixed (byte* ch = Utf8)
+        {
+            return RustImportFPtr.call_regex(ch);
         }
     }
 }
