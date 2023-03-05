@@ -14,7 +14,7 @@ fn bindings_csharp() -> Result<(), Error> {
 
     Generator::new(config, rust_export::my_inventory())
         .add_overload_writer(DotNet::new())
-        .write_file("G:\\source\\repos\\En3Tho\\RustPlayground\\RustExport\\Interop.cs")?;
+        .write_file("Interop.cs")?;
 
     Ok(())
 }

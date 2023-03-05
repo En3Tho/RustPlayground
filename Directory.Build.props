@@ -7,6 +7,12 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <IsWindows Condition="$([MSBuild]::IsOSPlatform('Windows'))">true</IsWindows>
+        <IsOSX Condition="$([MSBuild]::IsOSPlatform('OSX'))">true</IsOSX>
+        <IsLinux Condition="$([MSBuild]::IsOSPlatform('Linux'))">true</IsLinux>
+    </PropertyGroup>
+
     <PropertyGroup Condition="'$(RLib)'=='True'">
         <CargoLibFlag>--lib</CargoLibFlag>
     </PropertyGroup>
@@ -22,4 +28,5 @@
     <Target Name="CargoTest" Condition="'$(RTest)'=='True'" AfterTargets="CargoBuild">
         <Exec Command="cargo test" ConsoleToMSBuild="true"/>
     </Target>
+
 </Project>

@@ -4,6 +4,7 @@
         <Rust>True</Rust>
         <RLib>True</RLib>
         <RTest>True</RTest>
+        <RLibName>rust_export</RLibName>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,12 +13,16 @@
         <None Remove="target\**" />
     </ItemGroup>
 
-    <ItemGroup>
-        <None Include="target\$(Configuration)\rust_export.dll">
+    <ItemGroup Condition="'$(RLib)'=='True'">
+        <None Condition="'$(IsWindows)'=='true'" Include="target\$(Configuration)\$(RLibName).dll">
             <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="target\$(Configuration)\rust_export.pdb">
+        <None Condition="'$(IsLinux)'=='true'" Include="target\$(Configuration.ToLower())\lib$(RLibName).so">
+            <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="target\$(Configuration.ToLower())\$(RLibName).pdb">
             <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
