@@ -13,7 +13,7 @@
         <IsLinux Condition="$([MSBuild]::IsOSPlatform('Linux'))">true</IsLinux>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(RLib)'=='true'">
+    <PropertyGroup Condition="'$(RLib)'!=''">
         <CargoLibFlag>--lib</CargoLibFlag>
     </PropertyGroup>
 

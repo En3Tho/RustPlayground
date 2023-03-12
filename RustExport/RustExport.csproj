@@ -2,9 +2,8 @@
 
     <PropertyGroup>
         <Rust>true</Rust>
-        <RLib>true</RLib>
         <RTest>true</RTest>
-        <RLibName>rust_export</RLibName>
+        <RLib>rust_export</RLib>
     </PropertyGroup>
 
 </Project>

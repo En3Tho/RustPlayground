@@ -6,12 +6,12 @@
         <None Remove="target\**" />
     </ItemGroup>
 
-    <ItemGroup Condition="'$(RLib)'=='true'">
-        <None Condition="'$(IsWindows)'=='true'" Include="$(TargetLibPath)\$(RLibName).dll">
+    <ItemGroup Condition="'$(RLib)'!=''">
+        <None Condition="'$(IsWindows)'=='true'" Include="$(TargetLibPath)\$(RLib).dll">
             <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Condition="'$(IsLinux)'=='true'" Include="$(TargetLibPath)\lib$(RLibName).so">
+        <None Condition="'$(IsLinux)'=='true'" Include="$(TargetLibPath)\lib$(RLib).so">
             <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
