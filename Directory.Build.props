@@ -21,6 +21,10 @@
         <CargoReleaseFlag>--release</CargoReleaseFlag>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <TargetLibPath>target\$(Configuration.ToLower())</TargetLibPath>
+    </PropertyGroup>
+
     <Target Name="CargoBuild" Condition="'$(Rust)'=='true'" AfterTargets="PreBuildEvent">
         <Exec Command="cargo build $(CargoReleaseFlag) $(CargoLibFlag)" ConsoleToMSBuild="true"/>
     </Target>

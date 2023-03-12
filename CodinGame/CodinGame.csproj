@@ -4,10 +4,4 @@
         <Rust>True</Rust>
     </PropertyGroup>
 
-    <ItemGroup>
-        <Compile Remove="target\**" />
-        <EmbeddedResource Remove="target\**" />
-        <None Remove="target\**" />
-    </ItemGroup>
-
 </Project>

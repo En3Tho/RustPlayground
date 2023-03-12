@@ -1,0 +1,20 @@
+<Project>
+
+    <ItemGroup Condition="'$(Rust)'=='true'">
+        <Compile Remove="target\**" />
+        <EmbeddedResource Remove="target\**" />
+        <None Remove="target\**" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(RLib)'=='true'">
+        <None Condition="'$(IsWindows)'=='true'" Include="$(TargetLibPath)\$(RLibName).dll">
+            <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Condition="'$(IsLinux)'=='true'" Include="$(TargetLibPath)\lib$(RLibName).so">
+            <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+</Project>
