@@ -3,12 +3,7 @@ use crate::utils::{size_of_u32, to_u16_bytes};
 use windows::core::{PCSTR, PCWSTR};
 use windows::Win32::Foundation::{HMODULE, HWND, LPARAM, LRESULT, WPARAM};
 use windows::Win32::Graphics::Gdi::HBRUSH;
-use windows::Win32::UI::WindowsAndMessaging::{
-    CreateWindowExW, DefWindowProcA, DispatchMessageW, GetMessageW, RegisterClassExA, ShowWindow,
-    TranslateMessage, CW_USEDEFAULT, HCURSOR, HICON, HMENU, MSG, PBT_APMRESUMEAUTOMATIC,
-    PBT_APMSUSPEND, SW_HIDE, WINDOW_EX_STYLE, WM_POWERBROADCAST, WNDCLASSEXA, WNDCLASS_STYLES,
-    WS_OVERLAPPEDWINDOW,
-};
+use windows::Win32::UI::WindowsAndMessaging::{CreateWindowExW, DefWindowProcA, DispatchMessageW, GetMessageW, RegisterClassExA, ShowWindow, TranslateMessage, CW_USEDEFAULT, HCURSOR, HICON, HMENU, MSG, PBT_APMRESUMEAUTOMATIC, PBT_APMSUSPEND, SW_HIDE, WINDOW_EX_STYLE, WM_POWERBROADCAST, WNDCLASSEXA, WNDCLASS_STYLES, WS_OVERLAPPEDWINDOW, SW_SHOWMINNOACTIVE};
 
 unsafe extern "system" fn window_proc(
     hwnd: HWND,
@@ -65,8 +60,8 @@ pub unsafe fn win_main() {
         HMODULE::default(),
         None,
     );
-
-    ShowWindow(hwnd, SW_HIDE);
+    // TODO: find a way to get events without a shown window
+    ShowWindow(hwnd, SW_SHOWMINNOACTIVE);
 
     let mut msg = MSG::default();
 
