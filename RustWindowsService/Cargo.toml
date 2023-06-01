@@ -19,5 +19,7 @@ features = [
     "Devices_Enumeration",
     "Foundation_Collections",
     "Win32_Devices_DeviceAndDriverInstallation",
-    "Win32_Devices_Properties"
+    "Win32_Devices_Properties",
+    "Win32_System_Power",
+    "Win32_Graphics_Gdi"
 ]
