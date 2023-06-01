@@ -60,8 +60,7 @@ pub unsafe fn win_main() {
         HMODULE::default(),
         None,
     );
-    // TODO: find a way to get events without a shown window
-    ShowWindow(hwnd, SW_SHOWMINNOACTIVE);
+    ShowWindow(hwnd, SW_HIDE);
 
     let mut msg = MSG::default();
 
