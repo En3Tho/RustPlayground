@@ -88,7 +88,7 @@ unsafe fn get_device_id(
     HSTRING::from_wide(to_u16_slice(buf_slice))
 }
 
-pub unsafe fn change_device_state(turn_on: bool) -> Result<()> {
+pub unsafe fn change_device_state(turn_on: bool, device_id: &str) -> Result<()> {
     let dev_info = SetupDiGetClassDevsW(None, None, None, DIGCF_ALLCLASSES)?;
 
     let mut dev_data = SP_DEVINFO_DATA::default();
@@ -108,7 +108,7 @@ pub unsafe fn change_device_state(turn_on: bool) -> Result<()> {
         let hardware_id = get_device_id(dev_info, &mut dev_data, &mut buf)?;
         if hardware_id
             .to_string()
-            .contains("USB\\VID_8087&PID_0A2A&REV_0001")
+            .contains(device_id)
         {
             let turned_on = get_device_state(&dev_data)?;
             if turned_on != turn_on {

@@ -5,6 +5,8 @@ use windows::Win32::Foundation::{HMODULE, HWND, LPARAM, LRESULT, WPARAM};
 use windows::Win32::Graphics::Gdi::HBRUSH;
 use windows::Win32::UI::WindowsAndMessaging::{CreateWindowExW, DefWindowProcA, DispatchMessageW, GetMessageW, RegisterClassExA, ShowWindow, TranslateMessage, CW_USEDEFAULT, HCURSOR, HICON, HMENU, MSG, PBT_APMRESUMEAUTOMATIC, PBT_APMSUSPEND, SW_HIDE, WINDOW_EX_STYLE, WM_POWERBROADCAST, WNDCLASSEXA, WNDCLASS_STYLES, WS_OVERLAPPEDWINDOW, SW_SHOWMINNOACTIVE};
 
+const DEVICE_ID: &str = "USB\\VID_8087&PID_0A2A&REV_0001";
+
 unsafe extern "system" fn window_proc(
     hwnd: HWND,
     msg: u32,
@@ -16,6 +18,7 @@ unsafe extern "system" fn window_proc(
             PBT_APMSUSPEND | PBT_APMRESUMEAUTOMATIC => {
                 let result = device_state_change::change_device_state(
                     wparam.0 as u32 == PBT_APMRESUMEAUTOMATIC,
+                    DEVICE_ID
                 );
                 return LRESULT(if result.is_err() { 1 } else { 0 });
             }
