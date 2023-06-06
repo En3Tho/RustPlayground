@@ -46,6 +46,8 @@ pub unsafe fn win_main() {
 
     RegisterClassExA(&wc);
 
+    println!("RegisterClassExA ... ok");
+
     let class_name = PCWSTR::from_raw(to_u16_bytes("RustWindowClass").as_ptr());
     let window_name = PCWSTR::from_raw(to_u16_bytes("Rust Window").as_ptr());
 
@@ -65,7 +67,11 @@ pub unsafe fn win_main() {
     );
     ShowWindow(hwnd, SW_HIDE);
 
+    println!("ShowWindow ... ok");
+
     let mut msg = MSG::default();
+
+    println!("Listening ...");
 
     while GetMessageW(&mut msg, hwnd, 0, 0).0 > 0 {
         TranslateMessage(&msg);
