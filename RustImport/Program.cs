@@ -1,6 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Running;
 using RustExport;
@@ -49,4 +48,5 @@ unsafe void CallStr()
 // Console.ReadLine();
 // CallStr();
 
-BenchmarkRunner.Run(Assembly.GetExecutingAssembly());
+//BenchmarkRunner.Run(Assembly.GetExecutingAssembly());
+BenchmarkRunner.Run<RSRegexBenchmark>();

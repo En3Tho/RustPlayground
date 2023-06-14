@@ -14,12 +14,18 @@ public unsafe class RSRegexBenchmark
     public byte[] Utf8 { get; set; } = null!;
 
     [Benchmark]
-    public bool Rust()
+    public bool RustPInvoke()
     {
         fixed (byte* ch = Utf8)
         {
             return Interop.call_regex(ref Unsafe.AsRef<sbyte>(ch));
         }
+    }
+
+    [Benchmark]
+    public bool RustLibraryImport()
+    {
+        return LibraryImport.call_regex(ref Unsafe.As<byte, sbyte>(ref Utf8[0]));
     }
 
     [Benchmark]
@@ -36,6 +42,9 @@ public partial class CSRegexBenchmark
 {
     //lang=regex
     private const string Regex =
+        @"^\s*(XXXX|-?[0-9]+)\s+(-?[0-9]+)\s+((?:0[xX])?[0-9a-fA-F]+)\s+([0-9a-fA-F]{16})\s+((?:0[xX])?[0-9a-fA-F]+)\s+([^\s].*[^\s])\s+([0-9a-fA-F]{16}:[0-9a-fA-F]{16})\s+([0-9a-fA-F]{16})\s+(-?[0-9]+)\s+([^\s].*[^\s])\s*([^\s].*[^\s])*\s*";
+
+    private const string RegexStartOfLine =
         @"\s*(XXXX|-?[0-9]+)\s+(-?[0-9]+)\s+((?:0[xX])?[0-9a-fA-F]+)\s+([0-9a-fA-F]{16})\s+((?:0[xX])?[0-9a-fA-F]+)\s+([^\s].*[^\s])\s+([0-9a-fA-F]{16}:[0-9a-fA-F]{16})\s+([0-9a-fA-F]{16})\s+(-?[0-9]+)\s+([^\s].*[^\s])\s*([^\s].*[^\s])*\s*";
 
     [GeneratedRegex(Regex)]
@@ -46,6 +55,15 @@ public partial class CSRegexBenchmark
 
     [GeneratedRegex(Regex, RegexOptions.ExplicitCapture)]
     public static partial Regex CSharpRegexExplicitCapture();
+
+    [GeneratedRegex(RegexStartOfLine)]
+    public static partial Regex CSharpRegexStartOfLine();
+
+    [GeneratedRegex(RegexStartOfLine, RegexOptions.NonBacktracking)]
+    public static partial Regex CSharpRegexNonBacktrackingStartOfLine();
+
+    [GeneratedRegex(RegexStartOfLine, RegexOptions.ExplicitCapture)]
+    public static partial Regex CSharpRegexExplicitCaptureStartOfLine();
 
     [Params(
         "ThreadCount:      42",
@@ -61,5 +79,14 @@ public partial class CSRegexBenchmark
 
     [Benchmark]
     public bool CSharpExplicitCapture() => CSharpRegexExplicitCapture().IsMatch(String);
+
+    [Benchmark]
+    public bool CSharpStartOfLine() => CSharpRegexStartOfLine().IsMatch(String);
+
+    [Benchmark]
+    public bool CSharpNonBacktrackingStartOfLine() => CSharpRegexNonBacktrackingStartOfLine().IsMatch(String);
+
+    [Benchmark]
+    public bool CSharpExplicitCaptureStartOfLine() => CSharpRegexExplicitCaptureStartOfLine().IsMatch(String);
 }
 
