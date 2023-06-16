@@ -156,5 +156,3 @@ pub unsafe fn _file_watcher() -> Result<()> {
     WaitForSingleObject(handle.0, INFINITE);
     Ok(())
 }
-
-

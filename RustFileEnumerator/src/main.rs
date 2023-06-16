@@ -139,7 +139,7 @@ pub unsafe fn u16_to_string(value: &[u16]) -> String {
 }
 
 fn format_byte_count_string(mut count: u64) -> String {
-    let buf = ["", "kb", "mb", "gb"];
+    let buf = ["b", "kb", "mb", "gb"];
 
     let mut counter = 0;
 

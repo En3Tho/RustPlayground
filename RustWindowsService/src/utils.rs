@@ -25,7 +25,7 @@ pub fn ensure_capacity(buf: &mut Vec<u8>, buf_size: usize) {
         while new_size < buf_size {
             new_size *= 2;
         }
-        *buf = vec![0; new_size as usize];
+        *buf = vec![0; new_size];
     }
 }
 
