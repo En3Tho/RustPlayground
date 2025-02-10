@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <UseRust>true</UseRust>
+        <OutputType>Exe</OutputType>
     </PropertyGroup>
 
 </Project>

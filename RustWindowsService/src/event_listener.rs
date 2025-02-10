@@ -3,9 +3,11 @@ use crate::utils::{size_of_u32, to_u16_bytes};
 use windows::core::{PCSTR, PCWSTR};
 use windows::Win32::Foundation::{HMODULE, HWND, LPARAM, LRESULT, WPARAM};
 use windows::Win32::Graphics::Gdi::HBRUSH;
-use windows::Win32::UI::WindowsAndMessaging::{CreateWindowExW, DefWindowProcA, DispatchMessageW, GetMessageW, RegisterClassExA, ShowWindow, TranslateMessage, CW_USEDEFAULT, HCURSOR, HICON, HMENU, MSG, PBT_APMRESUMEAUTOMATIC, PBT_APMSUSPEND, SW_HIDE, WINDOW_EX_STYLE, WM_POWERBROADCAST, WNDCLASSEXA, WNDCLASS_STYLES, WS_OVERLAPPEDWINDOW, SW_SHOWMINNOACTIVE};
+use windows::Win32::System::Power::POWERBROADCAST_SETTING;
+use windows::Win32::System::SystemServices::GUID_CONSOLE_DISPLAY_STATE;
+use windows::Win32::UI::WindowsAndMessaging::{CreateWindowExW, DefWindowProcA, DispatchMessageW, GetMessageW, RegisterClassExA, ShowWindow, TranslateMessage, CW_USEDEFAULT, HCURSOR, HICON, HMENU, MSG, PBT_APMRESUMEAUTOMATIC, PBT_APMSUSPEND, PBT_POWERSETTINGCHANGE, SW_HIDE, WINDOW_EX_STYLE, WM_POWERBROADCAST, WNDCLASSEXA, WNDCLASS_STYLES, WS_OVERLAPPEDWINDOW, SW_SHOWMINNOACTIVE};
 
-const DEVICE_ID: &str = "USB\\VID_8087&PID_0A2A&REV_0001";
+pub const DEVICE_ID: &str = "USB\\VID_8087&PID_0A2A&REV_0001";
 
 unsafe extern "system" fn window_proc(
     hwnd: HWND,
@@ -13,14 +15,28 @@ unsafe extern "system" fn window_proc(
     wparam: WPARAM,
     lparam: LPARAM,
 ) -> LRESULT {
-    match msg {
+    match msg {        
         WM_POWERBROADCAST => match wparam.0 as u32 {
             PBT_APMSUSPEND | PBT_APMRESUMEAUTOMATIC => {
                 let result = device_state_change::change_device_state(
                     wparam.0 as u32 == PBT_APMRESUMEAUTOMATIC,
                     DEVICE_ID
                 );
-                return LRESULT(if result.is_err() { 1 } else { 0 });
+
+                if let Err(e) = result {
+                    eprintln!("Error: {:?}", e);
+                    return LRESULT(1);
+                }
+
+                LRESULT(0)
+            }
+            PBT_POWERSETTINGCHANGE => {
+                let pbc_setting = *(lparam.0 as *const POWERBROADCAST_SETTING);
+                if pbc_setting.PowerSetting == GUID_CONSOLE_DISPLAY_STATE {
+
+                }
+
+                LRESULT(0)
             }
             _ => DefWindowProcA(hwnd, msg, wparam, lparam),
         },

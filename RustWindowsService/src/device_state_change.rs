@@ -94,8 +94,9 @@ pub unsafe fn change_device_state(turn_on: bool, device_id: &str) -> Result<()> 
     let mut dev_data = SP_DEVINFO_DATA::default();
     dev_data.cbSize = size_of_u32::<SP_DEVINFO_DATA>();
 
-    let mut buf = vec![0; 256 as usize];
+    let mut buf = vec![0; 256usize];
 
+    let mut processed = false;
     for i in 0..core::u32::MAX {
         let result = SetupDiEnumDeviceInfo(dev_info, i, &mut dev_data);
         if !result.as_bool() {
@@ -110,7 +111,10 @@ pub unsafe fn change_device_state(turn_on: bool, device_id: &str) -> Result<()> 
             .to_string()
             .contains(device_id)
         {
+            println!("Found device: {} ", hardware_id.to_string());
             let turned_on = get_device_state(&dev_data)?;
+            println!("Device is turned on: {} ", turned_on);
+
             if turned_on != turn_on {
                 if turned_on {
                     println!("Disabling device");
@@ -119,12 +123,22 @@ pub unsafe fn change_device_state(turn_on: bool, device_id: &str) -> Result<()> 
                     println!("Enabling device");
                     set_device_state(dev_info, &mut dev_data, DICS_ENABLE)?;
                 }
+
+                println!("Checking device state again");
                 if turned_on == get_device_state(&dev_data)? {
                     eprintln!("Failed to change device state");
+                } else {
+                    println!("Changed device state");
                 }
             }
+
+            processed = true;
             break;
         }
+    }
+
+    if !processed {
+        println!("Failed to process device {}", device_id);
     }
 
     Ok(())

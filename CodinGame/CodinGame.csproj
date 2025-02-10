@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Rust>True</Rust>
+        <UseRust>true</UseRust>
     </PropertyGroup>
 
 </Project>

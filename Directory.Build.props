@@ -1,20 +1,17 @@
 <Project>
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <UseArtifactsOutput>true</UseArtifactsOutput>
     </PropertyGroup>
 
     <PropertyGroup>
         <IsWindows Condition="$([MSBuild]::IsOSPlatform('Windows'))">true</IsWindows>
         <IsOSX Condition="$([MSBuild]::IsOSPlatform('OSX'))">true</IsOSX>
         <IsLinux Condition="$([MSBuild]::IsOSPlatform('Linux'))">true</IsLinux>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <TargetLibPath>target\$(Configuration.ToLower())</TargetLibPath>
     </PropertyGroup>
 
 </Project>

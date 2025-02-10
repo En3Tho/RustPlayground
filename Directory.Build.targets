@@ -1,35 +1,41 @@
 <Project>
 
-    <ItemGroup Condition="'$(Rust)'=='true'">
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <CargoReleaseFlag>--release</CargoReleaseFlag>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(UseRust)'=='true'">
         <Compile Remove="target\**" />
         <EmbeddedResource Remove="target\**" />
         <None Remove="target\**" />
     </ItemGroup>
 
-    <PropertyGroup Condition="'$(RLib)'!=''">
+<!--    These are aligned with UseArtifactsOutput set to true-->
+    <PropertyGroup Condition="'$(RustLib)'!=''">
+        <TargetLibPath>$(ArtifactsPath)\$(ProjectName)\bin\target\$(Configuration.ToLower())</TargetLibPath>
         <CargoLibFlag>--lib</CargoLibFlag>
+        <CargoTargetDirPath>$(ArtifactsPath)\$(ProjectName)\bin\target\</CargoTargetDirPath>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)'=='Release'">
-        <CargoReleaseFlag>--release</CargoReleaseFlag>
-    </PropertyGroup>
-
-    <ItemGroup Condition="'$(RLib)'!=''">
-        <None Condition="'$(IsWindows)'=='true'" Include="$(TargetLibPath)\$(RLib).dll">
+    <ItemGroup Condition="'$(RustLib)'!=''">
+        <None Condition="'$(IsWindows)'=='true'" Include="$(TargetLibPath)\$(RustLib).dll">
             <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Condition="'$(IsLinux)'=='true'" Include="$(TargetLibPath)\lib$(RLib).so">
+        <None Condition="'$(IsLinux)'=='true'" Include="$(TargetLibPath)\lib$(RustLib).so">
             <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
-    <Target Name="CargoBuild" Condition="'$(Rust)'=='true'" AfterTargets="PreBuildEvent">
-        <Exec Command="cargo build $(CargoReleaseFlag) $(CargoLibFlag)" ConsoleToMSBuild="true"/>
+<!--    TODO: cargo build target architecture? -->
+<!--    Use local for development and all supported targets for publish?-->
+<!--    Currently only local development is properly set up-->
+    <Target Name="CargoBuild" Condition="'$(UseRust)'=='true'" AfterTargets="PreBuildEvent">
+        <Exec Command="cargo build $(CargoReleaseFlag) $(CargoLibFlag) --target-dir $(CargoTargetDirPath)" ConsoleToMSBuild="true"/>
     </Target>
 
-    <Target Name="CargoTest" Condition="'$(RTest)'=='true'" AfterTargets="CargoBuild">
+    <Target Name="CargoTest" Condition="'$(RustTest)'=='true'" AfterTargets="CargoBuild">
         <Exec Command="cargo test" ConsoleToMSBuild="true"/>
     </Target>
 

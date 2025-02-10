@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Rust>true</Rust>
-        <RTest>true</RTest>
-        <RLib>rust_export</RLib>
+        <UseRust>true</UseRust>
+        <RustTest>true</RustTest>
+        <RustLib>rust_export</RustLib>
     </PropertyGroup>
 
 </Project>
