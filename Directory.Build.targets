@@ -33,7 +33,7 @@
     </Target>
 
     <Target Name="CargoTest" Condition="'$(RustTest)'=='true'" AfterTargets="CargoBuild">
-        <Exec Command="cargo test" ConsoleToMSBuild="true"/>
+        <Exec Command="cargo test $(CargoReleaseFlag) $(CargoLibFlag) --target-dir $(CargoTargetDirPath)" ConsoleToMSBuild="true"/>
     </Target>
 
 </Project>
