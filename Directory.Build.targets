@@ -4,25 +4,22 @@
         <CargoReleaseFlag>--release</CargoReleaseFlag>
     </PropertyGroup>
 
-    <ItemGroup Condition="'$(UseRust)'=='true'">
-        <Compile Remove="target\**" />
-        <EmbeddedResource Remove="target\**" />
-        <None Remove="target\**" />
-    </ItemGroup>
+    <PropertyGroup Condition="'$(UseRust)'=='true'">
+        <CargoTargetDirPath>$(ArtifactsPath)\$(ProjectName)\bin\target\</CargoTargetDirPath>
+        <RustLibraryOutputPath>$(CargoTargetDirPath)\$(Configuration.ToLower())</RustLibraryOutputPath>
+    </PropertyGroup>
 
 <!--    These are aligned with UseArtifactsOutput set to true-->
     <PropertyGroup Condition="'$(RustLib)'!=''">
-        <TargetLibPath>$(ArtifactsPath)\$(ProjectName)\bin\target\$(Configuration.ToLower())</TargetLibPath>
         <CargoLibFlag>--lib</CargoLibFlag>
-        <CargoTargetDirPath>$(ArtifactsPath)\$(ProjectName)\bin\target\</CargoTargetDirPath>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(RustLib)'!=''">
-        <None Condition="'$(IsWindows)'=='true'" Include="$(TargetLibPath)\$(RustLib).dll">
+        <None Condition="'$(IsWindows)'=='true'" Include="$(RustLibraryOutputPath)\$(RustLib).dll">
             <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Condition="'$(IsLinux)'=='true'" Include="$(TargetLibPath)\lib$(RustLib).so">
+        <None Condition="'$(IsLinux)'=='true'" Include="$(RustLibraryOutputPath)\lib$(RustLib).so">
             <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>

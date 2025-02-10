@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodinGame", "CodinGame\CodinGame.csproj", "{75A4F288-0FD5-4C39-B317-8087843A7C1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodinGame", "src\CodinGame\CodinGame.csproj", "{75A4F288-0FD5-4C39-B317-8087843A7C1F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{85F893CB-2A00-43EF-B0E5-B1FC916D187C}"
 	ProjectSection(SolutionItems) = preProject
@@ -10,17 +10,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		Directory.Build.targets = Directory.Build.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustImport", "RustImport\RustImport.csproj", "{23393727-AE8E-4A5A-A827-0AE5CEA2A131}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustImport", "src\RustImport\RustImport.csproj", "{23393727-AE8E-4A5A-A827-0AE5CEA2A131}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustExport", "RustExport\RustExport.csproj", "{26D7B1EE-A5D8-40F2-BFDD-2C520D7A5E68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustExport", "src\RustExport\RustExport.csproj", "{26D7B1EE-A5D8-40F2-BFDD-2C520D7A5E68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustWindowsService", "RustWindowsService\RustWindowsService.csproj", "{BD3F69FE-AD18-4487-94FE-5830BB53C48F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustWindowsService", "src\RustWindowsService\RustWindowsService.csproj", "{BD3F69FE-AD18-4487-94FE-5830BB53C48F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustFileEnumerator", "RustFileEnumerator\RustFileEnumerator.csproj", "{BADAFA52-23AC-4268-8270-FB7ECBB98DFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RustFileEnumerator", "src\RustFileEnumerator\RustFileEnumerator.csproj", "{BADAFA52-23AC-4268-8270-FB7ECBB98DFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLauncher", "GameLauncher\GameLauncher.csproj", "{EF2A7DE7-3B89-4BFE-83C5-AF608A492CB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLauncher", "src\GameLauncher\GameLauncher.csproj", "{EF2A7DE7-3B89-4BFE-83C5-AF608A492CB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameWatcher", "GameWatcher\GameWatcher.csproj", "{793B494E-AE24-421B-B7B3-09A249C755C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameWatcher", "src\GameWatcher\GameWatcher.csproj", "{793B494E-AE24-421B-B7B3-09A249C755C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
